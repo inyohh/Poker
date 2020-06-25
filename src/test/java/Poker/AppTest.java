@@ -5,6 +5,7 @@ package lab_2_2.webWork.Poker.src.test.java.Poker;
 
 import lab_2_2.webWork.Poker.src.main.java.Poker.App;
 import lab_2_2.webWork.Poker.src.main.java.Poker.Poker;
+import lab_2_2.webWork.Poker.src.main.java.Poker.Pokers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,5 +32,28 @@ class AppTest {
         Poker poker=new Poker('J','S');
         int value=poker.getTypeValue();
         Assertions.assertEquals(83,value);
+    }
+
+    @Test void shouldReturn_Royal_Flush_WhenGivePoker_TD_JD_QD_KD_AD(){
+        Pokers pokers=new Pokers(new Poker('T','D'),new Poker('J','D'),
+                new Poker('Q','D'),new Poker('K','D'),new Poker('A','D'));
+        String pokersPriority=pokers.getPokersType().toString();
+        Assertions.assertEquals("Royal_Flush",pokersPriority);
+    }
+
+    @Test void shouldReturn_Straight_WhenGivePoker_2H_3D_5S_4C_6D(){
+        Pokers pokers=new Pokers(new Poker('2','H'),new Poker('3','D'),
+                new Poker('5','S'),new Poker('4','C'),new Poker('6','D'));
+        String pokersPriority=pokers.getPokersType().toString();
+        Assertions.assertEquals("Straight",pokersPriority);
+    }
+
+    @Test void shouldReturn_1_WhenGivePoker_2H_3D_5S_4C_6D_TD_JD_QD_KD_AD(){
+        Pokers pokers1=new Pokers(new Poker('2','H'),new Poker('3','D'),
+                new Poker('5','S'),new Poker('4','C'),new Poker('6','D'));
+        Pokers pokers2=new Pokers(new Poker('T','D'),new Poker('J','D'),
+                new Poker('Q','D'),new Poker('K','D'),new Poker('A','D'));
+        int value=pokers2.biggerThan(pokers1);
+        Assertions.assertEquals(1,value);
     }
 }
